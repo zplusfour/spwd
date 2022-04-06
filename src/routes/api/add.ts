@@ -18,7 +18,7 @@ export const post: RequestHandler = async ({ request }) => {
 	const encPassword = md5(password);
 
 	let realtimePwds = JSON.parse(fs.readFileSync(PWDS_LOCATION_JSON, "utf8"));
-	realtimePwds.push({[`${app}-${encApp}`]: `${password}-${encPassword}`});
+	realtimePwds.push({app: `${app}-${encApp}`, password: `${password}-${encPassword}`});
 
 	fs.writeFileSync(PWDS_LOCATION_JSON, JSON.stringify(realtimePwds));
 
