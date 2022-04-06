@@ -27,6 +27,7 @@
 	"type": "module",
 	"dependencies": {
 		"@types/md5": "^2.3.2",
-		"md5": "^2.3.0"
+		"md5": "^2.3.0",
+		"svelte-copy-to-clipboard": "^0.2.5"
 	}
 }

@@ -1,7 +1,13 @@
 <script lang="ts">
-	import * as fs from "fs";
-	// import { config } from "dotenv";
-	// config();
+	import CopyToClipboard from "svelte-copy-to-clipboard";
+
+	const handleSuccessfullyCopied = (e) => {
+		console.log("Copied! ", e);
+	};
+
+	const handleFailedCopy = () => {
+		console.log("failed");
+	}
 
 	interface Item {
 		app: string;
@@ -16,7 +22,6 @@
 	(async () => {
 		const fpwds = await fetch(`${URL}/api/pwds`);
 		const json: Item[] = await fpwds.json();
-		console.log(json);
 		pwds = json;
 	})();
 
@@ -37,8 +42,10 @@
 	<!-- items here -->
 	{#each pwds as item}
 		<div>
-			<span>app name: {item.app.split("-")[0]}</span><br/><br/>
-			<span>password: {item.password.split("-")[0]} <b>hashed: {item.password.split("-")[1]}</b></span><br/><br/>
+			<span>app name: {item.app.split("-")[0]}</span>
+			<CopyToClipboard text={item.password.split("-")[0]} on:copy={handleSuccessfullyCopied} on:fail={handleFailedCopy} let:copy>
+				<button on:click={copy}>copy password</button>
+			</CopyToClipboard>
 		</div>
 	{/each}
 </div>
