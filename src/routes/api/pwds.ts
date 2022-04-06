@@ -3,7 +3,13 @@ import * as fs from "fs";
 import { PWDS_LOCATION_JSON } from "./add";
 
 export const get: RequestHandler = ({ request }) => {
-  const pwds = fs.readFileSync(PWDS_LOCATION_JSON);
+  var pwds: any;
+
+  if (!fs.existsSync(PWDS_LOCATION_JSON)) {
+    fs.writeFileSync(PWDS_LOCATION_JSON, "[]");
+  } else {
+    pwds = fs.readFileSync(PWDS_LOCATION_JSON);
+  }
 
   return {
     status: 200,

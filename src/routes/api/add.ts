@@ -17,10 +17,14 @@ export const post: RequestHandler = async ({ request }) => {
 	const encApp = md5(app);
 	const encPassword = md5(password);
 
-	let realtimePwds = JSON.parse(fs.readFileSync(PWDS_LOCATION_JSON, "utf8"));
-	realtimePwds.push({app: `${app}-${encApp}`, password: `${password}-${encPassword}`});
+	if (!fs.existsSync(PWDS_LOCATION_JSON)) {
+		fs.writeFileSync(PWDS_LOCATION_JSON, "[]");
+	} else {
+		let realtimePwds = JSON.parse(fs.readFileSync(PWDS_LOCATION_JSON, "utf8"));
+		realtimePwds.push({app: `${app}-${encApp}`, password: `${password}-${encPassword}`});
 
-	fs.writeFileSync(PWDS_LOCATION_JSON, JSON.stringify(realtimePwds));
+		fs.writeFileSync(PWDS_LOCATION_JSON, JSON.stringify(realtimePwds));
+	}
 
 	return {
 		headers: { Location: '/' },

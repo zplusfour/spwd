@@ -42,10 +42,45 @@
 	<!-- items here -->
 	{#each pwds as item}
 		<div>
-			<span>app name: {item.app.split("-")[0]}</span>
+			<span>{item.app.split("-")[0]}</span>
 			<CopyToClipboard text={item.password.split("-")[0]} on:copy={handleSuccessfullyCopied} on:fail={handleFailedCopy} let:copy>
 				<button on:click={copy}>copy password</button>
 			</CopyToClipboard>
 		</div>
 	{/each}
 </div>
+
+<style>
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	input {
+		margin: 10px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+
+	button {
+		margin: 10px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+
+	div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	span {
+		margin: 10px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+</style>
