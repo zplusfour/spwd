@@ -1,5 +1,13 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import md5 from 'md5';
+import * as fs from "fs";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+export const __filename = fileURLToPath(import.meta.url);
+export const __dirname = path.dirname(__filename);
+
+export const PWDS_LOCATION_JSON: string = __dirname + "/pwds.json"; // you can edit that later
 
 export const post: RequestHandler = async ({ request }) => {
 	const data: any = await request.formData();
@@ -9,21 +17,21 @@ export const post: RequestHandler = async ({ request }) => {
 	const encApp = md5(app);
 	const encPassword = md5(password);
 
+	let realtimePwds = JSON.parse(fs.readFileSync(PWDS_LOCATION_JSON, "utf8"));
+	realtimePwds.push({[`${app}-${encApp}`]: `${password}-${encPassword}`});
+
+	fs.writeFileSync(PWDS_LOCATION_JSON, JSON.stringify(realtimePwds));
+
 	return {
-		status: 200,
-		body: {
-			app: encApp,
-			password: encPassword,
-			rApp: app,
-			rPassword: password
-		}
+		headers: { Location: '/' },
+		status: 302
 	};
 };
 
 export const get: RequestHandler = ({ url }) => {
 	return {
 		body: {
-			v: url,
+			somepropidk: url,
 			test: true
 		}
 	} as any;
