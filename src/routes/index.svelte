@@ -46,6 +46,9 @@
 			<CopyToClipboard text={item.password.split("-")[0]} on:copy={handleSuccessfullyCopied} on:fail={handleFailedCopy} let:copy>
 				<button on:click={copy}>copy password</button>
 			</CopyToClipboard>
+			<form action="/api/del/{item.app}" method="post">
+				<button type="submit">delete</button>
+			</form>
 		</div>
 	{/each}
 </div>
