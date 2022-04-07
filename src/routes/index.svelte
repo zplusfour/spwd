@@ -9,6 +9,15 @@
 		console.log("failed");
 	}
 
+	const showEditForm = () => {
+		const form = document.getElementById("editForm");
+		if (form.style.display === "none") {
+			form.style.display = "block";
+		} else {
+			form.style.display = "none";
+		}
+	}
+
 	interface Item {
 		app: string;
 		password: string;
@@ -26,7 +35,6 @@
 	})();
 
 </script>
-
 <div>
 	<form action="/api/add" method="post">
 		<input name="app" id="app" type="text" placeholder="app name" />
@@ -49,15 +57,26 @@
 			<form action="/api/del/{item.app}" method="post">
 				<button type="submit">delete</button>
 			</form>
+			<button on:click={showEditForm}>edit</button>
+			<form id="editForm" action="/api/edit/{item.app}" method="post">
+				<input name="app" id="app" type="text" placeholder="app name" />
+				<input
+					name="password"
+					id="password"
+					type="password"
+					placeholder="password"
+				/>
+				<input type="submit" value="edit" />
+			</form>
 		</div>
 	{/each}
 </div>
 
 <style>
 	form {
-		display: flex;
+		/* display: flex; */
 		flex-direction: column;
-		align-items: center;
+		align-items: left;
 	}
 
 	input {
@@ -76,7 +95,7 @@
 
 	div {
 		display: flex;
-		flex-direction: column;
+		/* flex-direction: column; */
 		align-items: center;
 	}
 
@@ -85,5 +104,9 @@
 		padding: 10px;
 		border: 1px solid #ccc;
 		border-radius: 5px;
+	}
+
+	#editForm {
+		display: none;
 	}
 </style>

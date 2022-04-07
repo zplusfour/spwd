@@ -6,7 +6,8 @@ export const get: RequestHandler = ({ params }) => {
   return {
     status: 200,
     body: {
-      app: params.app
+      app: params.app,
+      note: "poop"
     }
   } as any;
 }
@@ -14,7 +15,6 @@ export const get: RequestHandler = ({ params }) => {
 export const post: RequestHandler = async ({ request, params }) => {
   const { app } = params;
   const pwds = JSON.parse(fs.readFileSync(PWDS_LOCATION_JSON, "utf8"));
-
   const pwd = pwds.find((pwd: { app: string; password: string }) => pwd.app === app);
 
   if (!pwd) {
@@ -27,18 +27,20 @@ export const post: RequestHandler = async ({ request, params }) => {
   } else {
     var npwds = [];
 
-    pwds.forEach((pwd: { app: string; password: string }) => {
-      if (pwd.app !== app) {
-        npwds.push(pwd);
+    pwds.forEach((p: { app: string; password: string; }) => {
+      if (p.app === app) {
+        // dont push to the array
       } else {
-        // dont
+        npwds.push(p);
       }
     });
 
+    fs.writeFileSync(PWDS_LOCATION_JSON, JSON.stringify(npwds));
+
     return {
-      status: 200,
-      Headers: {
-        Location: "/"
+      status: 302,
+      headers: {
+        Location: '/'
       }
     } as any;
   }
