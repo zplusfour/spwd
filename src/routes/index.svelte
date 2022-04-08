@@ -23,7 +23,7 @@
 		password: string;
 	}
 
-	var URL = "http://localhost:3000"; // will change that later after I deploy it on Replit
+	var URL = "http://localhost:3000";
 
 	// fetch data from /api/pwds
 	export var pwds: Item[] = [];
