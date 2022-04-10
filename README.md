@@ -1,3 +1,3 @@
-# spwd - a website that stores passwords
+# spwd
 
-now it automatically writes a pwds file if you dont have one lol
+now with a [desktop version](https://github.com/zplusfour/spwd-desktop)

@@ -107,7 +107,7 @@
 		border-radius: 5px;
 	}
 
-	#editForm {
+	form#editForm {
 		display: none;
 	}
 </style>
