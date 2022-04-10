@@ -26,6 +26,7 @@ export const post: RequestHandler = async ({ request }) => {
 		fs.writeFileSync(PWDS_LOCATION_JSON, JSON.stringify(realtimePwds));
 	}
 
+	console.log('added');
 	return {
 		headers: { Location: '/' },
 		status: 302

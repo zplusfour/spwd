@@ -37,6 +37,7 @@ export const post: RequestHandler = async ({ request, params }) => {
 
     fs.writeFileSync(PWDS_LOCATION_JSON, JSON.stringify(npwds));
 
+    console.log('deleted');
     return {
       status: 302,
       headers: {
