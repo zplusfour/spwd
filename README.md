@@ -1,3 +1,3 @@
 # spwd
 
-literally a package manager
+literally a password manager
